@@ -4,6 +4,7 @@ from IPy import IP
 def scan_port(ipaddress, port):
 	try:
 		sock  = socket.socket()
+		sock.settimeout(2)
 		sock.connect((ipaddress, port))
 		print('Port ' + str(port) + ' is open')
 	except:
