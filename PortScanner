@@ -1,12 +1,17 @@
 import socket
 from IPy import IP
 
+def scan_port(ipaddress, port):
+	try:
+		sock  = socket.socket()
+		sock.connect((ipaddress, port))
+		print('Port ' + str(port) + ' is open')
+	except:
+		print('Port ' + str(port) + ' is closed')
+		
 ipaddress = input('Input IP address to preform scan: ')
-port = 80
+start_port = int(input('Choose start of ports to scan: '))
+end_port = int(input('Choose end number of ports to scan: '))
 
-try:
-	sock  = socket.socket()
-	sock.connect((ipaddress, port))
-	print('Port is Open')
-except:
-	print('Port is Closed')
+for port in range(start_port, end_port):
+    scan_port(ipaddress, port)
