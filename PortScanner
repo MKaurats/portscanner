@@ -1,18 +1,29 @@
 import socket
 from IPy import IP
 
+print('Welcome to portscanner!')
+
+def check_ip(ip):
+    try:
+        IP(ip)
+        return(ip)
+    except ValueError:
+        return socket.gethostbyname(ip)
+
 def scan_port(ipaddress, port):
 	try:
 		sock  = socket.socket()
 		sock.settimeout(2)
 		sock.connect((ipaddress, port))
-		print('Port ' + str(port) + ' is open')
+		print('Port ' + str(port) + ' is Open')
 	except:
 		pass
 		
-ipaddress = input('Input IP address to preform scan: ')
+ipaddress = input('Input IP address or in form of domain name, to preform scan: ')
 start_port = int(input('Choose start of ports to scan: '))
 end_port = int(input('Choose end number of ports to scan: '))
 
+converted_ip = check_ip(ipaddress)
+
 for port in range(start_port, end_port):
-    scan_port(ipaddress, port)
+    scan_port(converted_ip, port)
